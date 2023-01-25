@@ -5,6 +5,7 @@ import chess.ChessPiece;
 import chess.ChessPosition;
 import chess.Color;
 
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.InputMismatchException;
 import java.util.List;
@@ -34,10 +35,32 @@ public class UI {
     public static final String ANSI_CYAN_BACKGROUND = "\u001B[46m";
     public static final String ANSI_WHITE_BACKGROUND = "\u001B[47m";
 
-    // https://stackoverflow.com/questions/2979383/java-clear-the-console
     public static void clearScreen() {
-        System.out.print("\033[H\033[2J");
-        System.out.flush();
+        String os = System.getProperty("os.name").toLowerCase();
+
+        switch (os) {
+            case "darwin":
+                runCmd("clear");
+                break;
+            case "linux":
+                runCmd("clear");
+                break;
+            case "windows", "windows 10":
+                runCmd("cmd", "/c", "cls");
+                break;
+            default:
+                System.err.println("unsupported os " + os);
+        }
+    }
+
+    static void runCmd(String... command) {
+        try {
+            ProcessBuilder pb = new ProcessBuilder(command);
+            Process startProcess = pb.inheritIO().start();
+            startProcess.waitFor();
+        } catch (IOException | InterruptedException e) {
+            System.err.println(e);
+        }
     }
 
     public static ChessPosition readChessPosition(Scanner sc) {
