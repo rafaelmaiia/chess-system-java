@@ -1,5 +1,5 @@
 # Sistema de Jogo de Xadrez 
-[![NPM](https://img.shields.io/npm/l/react)](https://github.com/devsuperior/sds1-wmazoni/blob/master/LICENSE) 
+[![NPM](https://img.shields.io/npm/l/react)](https://github.com/rafaelmaiia/chess-system-java/blob/main/LICENSE) 
 
 # Sobre o projeto
 
